@@ -82,19 +82,20 @@ public class App extends Application {
 
     }
 
-    private Boolean isValidPassword(String newValue) {
-        int letters = 0;
-        int digits = 0;
-        int others = 0;
-        for (char c : newValue.toCharArray()) {
-            if (c > 48 && c < 58) {
-                digits +=1;
-            } else if ((c > 64 && c < 91) || (c > 96 && c < 123) ) {
-                letters +=1;
+    private Boolean isValidPassword(String password) {
+        boolean hasLetters = false;
+        boolean hasDigits = false;
+        boolean hasSpecial = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isDigit(c)) {
+                hasDigits = true;
+            } else if (Character.isLetter(c)) {
+                hasLetters = true;
             } else {
-                others += 1;
+                hasSpecial = true;
             }
         }
-        return newValue.length() > 7 && (letters > 0 && digits > 0 && others > 0);
+        return password.length() > 7 && (hasLetters && hasDigits && hasSpecial);
     }
 }
